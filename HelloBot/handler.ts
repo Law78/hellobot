@@ -5,7 +5,7 @@ import {
   readHeader,
   verifyRequest,
 } from "../utils/slackUtils";
-import { getApp } from "./slackApp";
+import { getApp } from "./slack/slackApp";
 import "dotenv/config";
 
 export const handler = async (request, context) => {

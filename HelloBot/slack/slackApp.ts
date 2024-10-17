@@ -1,5 +1,6 @@
 import { App, BlockAction, BlockElementAction, ButtonAction, LogLevel, ReceiverEvent } from '@slack/bolt';
-import { expressReceiver } from '../utils/slackUtils';
+import { expressReceiver } from '../../utils/slackUtils';
+import { waveMessage } from './handler/message';
 
 export const getApp = () => {
   const app = new App({
@@ -12,37 +13,7 @@ export const getApp = () => {
     // socketMode: true
   });
 
-  app.message('hello', async ({ message, say }) => {
-    await say({
-      "blocks": [
-        {
-          "type": "actions",
-          "elements": [
-            {
-              "type": "button",
-              "text": {
-                "type": "plain_text",
-                "text": ":white_check_mark: Valid",
-              },
-              "style": "primary",
-              "action_id": "action_a",
-              "value": "click_me_123",
-            },
-            {
-              "type": "button",
-              "text": {
-                "type": "plain_text",
-                "text": ":x: Invalid",
-              },
-              "style": "danger",
-              "action_id": "action_b",
-              "value": "click_me_123",
-            },
-          ],
-        }
-      ]
-    });
-  });
+  app.message('hello', waveMessage);
 
   app.action('action_a', async ({ body, ack, say }) => {
     console.log('ACTION A')
