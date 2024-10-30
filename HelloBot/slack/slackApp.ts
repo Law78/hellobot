@@ -1,4 +1,4 @@
-import { App, BlockAction, BlockElementAction, ButtonAction, LogLevel, ReceiverEvent } from '@slack/bolt';
+import { App, BlockAction, BlockElementAction, ButtonAction, LogLevel } from '@slack/bolt';
 import { expressReceiver } from '../../utils/slackUtils';
 import { waveMessage } from './handler/message';
 
@@ -39,8 +39,8 @@ export const getApp = () => {
       // Ensure the body.actions[0] is a ButtonAction
       const action = body.actions[0] as ButtonAction;
       if (action.value) {
-        const [channelName, workId, userId] = action.value.split("_");
-        const claimantId = body.user.id;
+        // const [channelName, workId, userId] = action.value.split("_");
+        // const claimantId = body.user.id;
         await ack();
         await say(`<@${body.user.id}> clicked the button INVALID`);
       } else {
