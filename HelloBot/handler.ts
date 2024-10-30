@@ -8,6 +8,10 @@ import {
 import { getApp } from "./slack/slackApp";
 import "dotenv/config";
 
+interface PayloadSlack {
+  challenge?: string
+}
+
 export const handler = async (request, context) => {
   const servicename = process.env["SERVICENAME"] ?? "HelloBot";
   context.log(`Starting ${servicename}`);
@@ -21,7 +25,7 @@ export const handler = async (request, context) => {
   } else {
     const body = await request.text();
     const contentType = readHeader(request, "content-type");
-    const payload: any = parseRequestBody(body, contentType);
+    const payload: PayloadSlack = parseRequestBody(body, contentType);
     verifyRequest(request, body);
 
     if (payload && payload.challenge) {

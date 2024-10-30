@@ -3,10 +3,12 @@ import { ExpressReceiver, ReceiverEvent } from "@slack/bolt";
 import { parse } from "querystring";
 import { createHmac } from "crypto";
 import tsscmp from "tsscmp";
+import { StringIndexed } from "@slack/bolt/dist/types/helpers";
 
 export const verifyRequest = (
   // signingSecret: string, // è il valore di SLACK_SIGNING_SECRET
   req: HttpRequest,
+  /* eslint-disable @typescript-eslint/no-explicit-any */
   body: any
   // signature: string | undefined, // si prende da 'x-slack-signature' nell'HEADER
   // requestTimestamp: string | undefined // si prende da 'x-slack-request-timestamp' nell'HEADER,
@@ -52,10 +54,10 @@ export const verifyRequest = (
   }
 };
 
-export function generateReceiverEvent(payload: any): ReceiverEvent {
+export function generateReceiverEvent(payload: StringIndexed): ReceiverEvent {
   return {
     body: payload,
-    ack: async (response): Promise<any> => {
+    ack: async (response: Response): Promise<any> => {
       return {
         statusCode: 200,
         body: response ?? "",
