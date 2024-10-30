@@ -1,0 +1,5 @@
+# .prettierrc or .prettierrc.yaml
+parser: typescript
+tabWidth: 2
+semi: false
+singleQuote: true
